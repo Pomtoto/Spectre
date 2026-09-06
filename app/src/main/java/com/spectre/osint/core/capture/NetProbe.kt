@@ -89,7 +89,7 @@ fun readArpTable(): List<ArpRow> {
 }
 
 // ── مورّد MAC (قائمة تقديرية للمورّدين الشائعين) ───────────────
-private val OUI = listOf(
+private val OUI = mapOf(
     "000393" to "Apple", "000A27" to "Apple", "000A95" to "Apple", "001B63" to "Apple",
     "001EC2" to "Apple", "002332" to "Apple", "002500" to "Apple", "002608" to "Apple",
     "0026BB" to "Apple", "040CCE" to "Apple", "041E64" to "Apple", "044BED" to "Apple",
@@ -123,10 +123,7 @@ private val OUI = listOf(
 fun vendorOf(mac: String): String {
     val clean = mac.replace(":", "").replace("-", "").uppercase().take(6)
     if (clean.length < 6) return "غير معروف"
-    for (i in 0 until OUI.size step 2) {
-        if (i + 1 < OUI.size && OUI[i] == clean) return OUI[i + 1]
-    }
-    return "غير معروف"
+    return OUI[clean] ?: "غير معروف"
 }
 
 // ── Wi-Fi ────────────────────────────────────────────────────────
@@ -156,7 +153,7 @@ fun scanWifi(context: Context): List<WifiRow> {
         val res = wm.scanResults ?: emptyList()
         res.map { r ->
             WifiRow(
-                r.ssid.ifBlank { "(مخفي)" }, r.bssid.uppercase(), r.frequency,
+                r.SSID?.ifBlank { "(مخفي)" } ?: "(مخفي)", r.BSSID.uppercase(), r.frequency,
                 r.level, channelOf(r.frequency), securityOf(r.capabilities)
             )
         }.sortedByDescending { it.rssi }

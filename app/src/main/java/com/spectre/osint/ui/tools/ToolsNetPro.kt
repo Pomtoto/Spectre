@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -85,8 +86,8 @@ fun PcapScreen(onBack: () -> Unit) {
                         out.add(TLine("$ip  →  ${"%.2f".format(bytes / 1024.0)} KB", 4))
                     }
                     if (s.errors.isNotEmpty()) {
-                        out.add(tWarn(s.errors.joinToString(" "))
-                            + if (s.errors.size > 1) " (+${s.errors.size - 1})" else "")
+                        val errTxt = s.errors.joinToString("\n") + if (s.errors.size > 1) " (+${s.errors.size - 1})" else ""
+                        out.add(tWarn(errTxt))
                     }
                     out.add(tOk("التفكيك مكتمل"))
                     lines = out
@@ -165,13 +166,6 @@ fun WifiScreen(onBack: () -> Unit) {
     var error by remember { mutableStateOf<String?>(null) }
     var gwResults by remember { mutableStateOf<List<TLine>>(emptyList()) }
 
-    val permLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { grants ->
-        if (grants.values.any { it }) scan()
-        else error = "صلاحية الموقع مطلوبة لقراءة نتائج المسح — فعّلها من إعدادات النظام"
-    }
-
     fun scan() {
         busy = true; error = null
         scope.launch {
@@ -179,6 +173,13 @@ fun WifiScreen(onBack: () -> Unit) {
             info = withContext(Dispatchers.IO) { localNetInfo(context) }
             busy = false
         }
+    }
+
+    val permLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { grants ->
+        if (grants.values.any { it }) scan()
+        else error = "صلاحية الموقع مطلوبة لقراءة نتائج المسح — فعّلها من إعدادات النظام"
     }
 
     ToolScaffold("WIFI RECON", "محيط التردد: SSID · القناة · الإشارة · التشفير", onBack) { pad ->

@@ -380,6 +380,7 @@ private class PcapReader(private val b: ByteArray) {
                 if (f.dnsName == null) { f.dnsName = qname; f.dnsType = tName }
                 dnsNames.add("$qname ($tName)")
             }
+            Unit
         } catch (e: Exception) {}
     }
 
