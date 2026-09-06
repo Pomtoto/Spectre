@@ -21,6 +21,13 @@ sealed class Screen {
     data object Breach : Screen()
     data object Whois : Screen()
     data object Link : Screen()
+    data object Port : Screen()
+    data object SubEnum : Screen()
+    data object Http : Screen()
+    data object Apk : Screen()
+    data object File : Screen()
+    data object Crypto : Screen()
+    data object Device : Screen()
 }
 
 class MainActivity : ComponentActivity() {
@@ -39,6 +46,13 @@ class MainActivity : ComponentActivity() {
                     Screen.Breach -> BreachScreen(onBack = { screen = Screen.Home })
                     Screen.Whois -> WhoisScreen(onBack = { screen = Screen.Home })
                     Screen.Link -> LinkScreen(onBack = { screen = Screen.Home })
+                    Screen.Port -> PortScreen(onBack = { screen = Screen.Home })
+                    Screen.SubEnum -> SubEnumScreen(onBack = { screen = Screen.Home })
+                    Screen.Http -> HttpScreen(onBack = { screen = Screen.Home })
+                    Screen.Apk -> ApkScreen(onBack = { screen = Screen.Home })
+                    Screen.File -> FileScreen(onBack = { screen = Screen.Home })
+                    Screen.Crypto -> CryptoScreen(onBack = { screen = Screen.Home })
+                    Screen.Device -> DeviceAuditScreen(onBack = { screen = Screen.Home })
                 }
             }
         }

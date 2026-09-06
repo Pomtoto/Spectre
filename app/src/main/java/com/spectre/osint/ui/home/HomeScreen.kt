@@ -5,17 +5,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Dns
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.Key
-import androidx.compose.material.icons.filled.Link
-import androidx.compose.material.icons.filled.Public
-import androidx.compose.material.icons.filled.QrCode
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,14 +36,29 @@ data class ToolEntry(
     val tag: String
 )
 
-private val tools = listOf(
-    ToolEntry(Screen.Exif, Icons.Filled.Image, "محلل الصور", "استخرج البيانات المخفية: الجهاز، الوقت، والموقع", "Image Forensics"),
-    ToolEntry(Screen.Password, Icons.Filled.Key, "محلل كلمات المرور", "قياس القوة والفترة اللازمة للكسر + التسريبات", "Password Auditor"),
-    ToolEntry(Screen.Ip, Icons.Filled.Public, "متتبع العناوين", "موقع أي عنوان IP أو نطاق، المزود، وكشف VPN", "IP Intelligence"),
-    ToolEntry(Screen.Qr, Icons.Filled.QrCode, "قارئ وتوليد QR", "فك أي رمز QR أو توليد رمز جديد", "QR Module"),
-    ToolEntry(Screen.Breach, Icons.Filled.Email, "كاشف التسريبات", "هل حسابك ضمن تسريبات معروفة؟", "Breach Finder"),
-    ToolEntry(Screen.Whois, Icons.Filled.Dns, "استعلام النطاقات", "مالك النطاق، تاريخ التسجيل، وسجلات DNS", "Domain Intel"),
-    ToolEntry(Screen.Link, Icons.Filled.Link, "فاحص الروابط", "كشف الوجهة الحقيقية لأي رابط قبل فتحه", "Link Inspector"),
+data class ToolSection(val name: String, val ref: String, val tools: List<ToolEntry>)
+
+private val sections = listOf(
+    ToolSection("الاستطلاع", "RECON", listOf(
+        ToolEntry(Screen.Port, Icons.Filled.NetworkCheck, "ماسح المنافذ", "فحص منافذ TCP لأي هدف + الأجهزة الحية بالشبكة", "portscan"),
+        ToolEntry(Screen.SubEnum, Icons.Filled.TravelExplore, "تعداد النطاقات", "استخراج النطاقات الفرعية من سجل الشهادات", "subenum"),
+        ToolEntry(Screen.Ip, Icons.Filled.Public, "متتبع العناوين", "موقع أي IP، المزود، وكشف VPN/Tor", "iptrace"),
+        ToolEntry(Screen.Whois, Icons.Filled.Dns, "استعلام النطاقات", "مالك النطاق والتسجيل وسجلات DNS", "whois"),
+        ToolEntry(Screen.Link, Icons.Filled.Link, "فاحص الروابط", "كشف الوجهة الحقيقية لأي رابط مختصر", "linkscan"),
+    )),
+    ToolSection("التحليل", "ANALYSIS", listOf(
+        ToolEntry(Screen.Exif, Icons.Filled.Image, "محلل الصور", "الجهاز، الوقت، والموقع الجغرافي المخفي", "exif"),
+        ToolEntry(Screen.Apk, Icons.Filled.Android, "محلل APK", "الشهادة، الصلاحيات، والمتتبعات من الحزمة", "apk-dex"),
+        ToolEntry(Screen.File, Icons.Filled.Description, "فاحص الملفات", "التوقيع السحري والبصمات والنصوص", "file-sig"),
+        ToolEntry(Screen.Http, Icons.Filled.Security, "تحليل HTTP", "رأسيات الأمان وبصمة الخادم", "http"),
+    )),
+    ToolSection("الأدوات", "TOOLKIT", listOf(
+        ToolEntry(Screen.Password, Icons.Filled.Key, "محلل كلمات المرور", "القوة، زمن الكسر، والمواقع المسرّبة", "pw-audit"),
+        ToolEntry(Screen.Breach, Icons.Filled.Email, "كاشف التسريبات", "حسابك ضمن أي تسريب معروف؟", "breach"),
+        ToolEntry(Screen.Crypto, Icons.Filled.Calculate, "مختبر الترميز", "Hash وBase64 وHex وXOR وROT13", "crypto"),
+        ToolEntry(Screen.Qr, Icons.Filled.QrCode, "قارئ QR", "فك وتوليد رموز QR", "qr"),
+        ToolEntry(Screen.Device, Icons.Filled.PhoneAndroid, "فحص الجهاز", "حالة الحماية العامة لجهازك", "audit"),
+    )),
 )
 
 @Composable
@@ -59,7 +69,7 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
             .background(Bg)
             .padding(horizontal = 18.dp)
     ) {
-        Spacer(Modifier.height(28.dp))
+        Spacer(Modifier.height(26.dp))
 
         // ── الترويسة ──
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -88,7 +98,7 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
                     letterSpacing = 6.sp
                 )
                 Text(
-                    "أدوات الاستخبارات المفتوحة",
+                    "مجموعة الاستخبارات المفتوحة — PRO",
                     color = TextMid,
                     fontFamily = TajawalFamily,
                     fontSize = 13.sp
@@ -96,34 +106,53 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
             }
         }
 
-        Spacer(Modifier.height(14.dp))
+        Spacer(Modifier.height(12.dp))
 
-        // ── شريط الحالة ──
         Row(verticalAlignment = Alignment.CenterVertically) {
-            StatusMini("${tools.size} أدوات", Neon)
+            StatusMini("${sections.sumOf { it.tools.size }} أداة", Neon)
             Spacer(Modifier.width(8.dp))
             StatusMini("بدون روت", Cyan)
             Spacer(Modifier.width(8.dp))
-            StatusMini("مصادر عامة", Violet)
+            StatusMini("TCP / DNS / HTTP", Violet)
             Spacer(Modifier.weight(1f))
-            Text("v1.0", color = TextDim, fontFamily = FontFamily.Monospace, fontSize = 12.sp)
+            Text("v2.0 PRO", color = TextDim, fontFamily = FontFamily.Monospace, fontSize = 12.sp)
         }
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(10.dp))
 
-        // ── شبكة الأدوات ──
+        // ── الشبكة ──
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(tools) { tool ->
-                ToolCard(tool) { onOpen(tool.screen) }
+            sections.forEach { sec ->
+                item(span = { GridItemSpan(2) }) {
+                    Row(
+                        Modifier.padding(top = 10.dp, bottom = 2.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            "// ${sec.ref}",
+                            color = Neon.copy(alpha = 0.8f),
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 12.sp,
+                            letterSpacing = 2.sp
+                        )
+                        Spacer(Modifier.width(10.dp))
+                        Text(sec.name, color = TextMid, fontSize = 13.sp, fontFamily = TajawalFamily, fontWeight = FontWeight.Bold)
+                        Spacer(Modifier.weight(1f))
+                        Box(Modifier.width(46.dp).height(1.dp).background(Border))
+                    }
+                }
+                items(sec.tools) { tool ->
+                    ToolCard(tool) { onOpen(tool.screen) }
+                }
             }
-            item(span = { androidx.compose.foundation.lazy.grid.GridItemSpan(2) }) {
-                Box(Modifier.padding(top = 6.dp, bottom = 18.dp)) {
+            item(span = { GridItemSpan(2) }) {
+                Box(Modifier.padding(top = 8.dp, bottom = 18.dp)) {
                     Text(
-                        "جميع البيانات تُجلب من مصادر عامة ومتاحة قانونياً لفهم المخاطر الأمنية — استخدم الأداة بمسؤولية.",
+                        "جميع الفحوصات تُجرى على مصادر عامة وأهداف مسموح التعامل معها — استخدم الأدوات بمسؤولية.",
                         color = TextDim,
                         fontFamily = TajawalFamily,
                         fontSize = 11.sp,
@@ -159,21 +188,29 @@ private fun ToolCard(tool: ToolEntry, onClick: () -> Unit) {
             .clickable { onClick() }
             .padding(14.dp)
     ) {
-        Box(
-            Modifier
-                .size(42.dp)
-                .clip(RoundedCornerShape(11.dp))
-                .background(Neon.copy(alpha = 0.12f))
-                .border(1.dp, Neon.copy(alpha = 0.4f), RoundedCornerShape(11.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(tool.icon, null, tint = Neon, modifier = Modifier.size(22.dp))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                Modifier
+                    .size(38.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Neon.copy(alpha = 0.12f))
+                    .border(1.dp, Neon.copy(alpha = 0.4f), RoundedCornerShape(10.dp)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(tool.icon, null, tint = Neon, modifier = Modifier.size(20.dp))
+            }
+            Spacer(Modifier.width(8.dp))
+            Text(
+                tool.tag,
+                color = Neon.copy(alpha = 0.65f),
+                fontSize = 9.5.sp,
+                letterSpacing = 0.5.sp,
+                fontFamily = FontFamily.Monospace
+            )
         }
-        Spacer(Modifier.height(10.dp))
-        Text(tool.title, color = TextHi, fontWeight = FontWeight.Bold, fontSize = 14.5.sp, fontFamily = TajawalFamily)
+        Spacer(Modifier.height(9.dp))
+        Text(tool.title, color = TextHi, fontWeight = FontWeight.Bold, fontSize = 14.sp, fontFamily = TajawalFamily)
         Spacer(Modifier.height(3.dp))
-        Text(tool.sub, color = TextDim, fontSize = 11.sp, lineHeight = 15.sp, maxLines = 3, fontFamily = TajawalFamily)
-        Spacer(Modifier.height(8.dp))
-        Text(tool.tag, color = Neon.copy(alpha = 0.65f), fontSize = 9.5.sp, letterSpacing = 1.sp, fontFamily = FontFamily.Monospace)
+        Text(tool.sub, color = TextDim, fontSize = 10.5.sp, lineHeight = 14.sp, maxLines = 3, fontFamily = TajawalFamily)
     }
 }

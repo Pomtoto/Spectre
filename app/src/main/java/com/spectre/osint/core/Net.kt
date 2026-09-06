@@ -9,13 +9,18 @@ import java.net.URL
 data class HttpR(val code: Int, val body: String?)
 
 object Net {
-    fun get(url: String, headers: Map<String, String> = emptyMap()): HttpR {
+    fun get(
+        url: String,
+        headers: Map<String, String> = emptyMap(),
+        connectTimeoutMs: Int = 15000,
+        readTimeoutMs: Int = 20000
+    ): HttpR {
         val conn = (URL(url).openConnection() as HttpURLConnection).apply {
             requestMethod = "GET"
-            connectTimeout = 15000
-            readTimeout = 20000
+            connectTimeout = connectTimeoutMs
+            readTimeout = readTimeoutMs
             instanceFollowRedirects = true
-            setRequestProperty("User-Agent", "Spectre/1.0 (Android; OSINT)")
+            setRequestProperty("User-Agent", "Spectre/2.0 (Android; OSINT)")
             setRequestProperty("Accept", "application/json,text/plain,*/*")
             headers.forEach { (k, v) -> setRequestProperty(k, v) }
         }
@@ -41,7 +46,7 @@ object Net {
                 instanceFollowRedirects = false
                 connectTimeout = 8000
                 readTimeout = 8000
-                setRequestProperty("User-Agent", "Spectre/1.0")
+                setRequestProperty("User-Agent", "Spectre/2.0")
                 setRequestProperty("Accept", "*/*")
             }
             try {
