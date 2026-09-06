@@ -5,16 +5,14 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.exifinterface.media.ExifInterface
-import com.google.mlkit.vision.barcode.Barcode
-import com.google.mlkit.vision.barcode.BarcodeScannerOptions
-import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.common.InputImage
 import com.google.zxing.BarcodeFormat
+import com.google.zxing.BinaryBitmap
 import com.google.zxing.EncodeHintType
+import com.google.zxing.MultiFormatReader
+import com.google.zxing.RGBLuminanceSource
+import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.qrcode.QRCodeWriter
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.resume
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
@@ -152,8 +150,9 @@ data class ExifData(
     val hasGps: Boolean get() = lat != null && lon != null
 }
 
-fun readExif(context: Context, uri: Uri): ExifData? = try {
-    val stream = context.contentResolver.openInputStream(uri) ?: return null
+fun readExif(context: Context, uri: Uri): ExifData? {
+    return try {
+        val stream = context.contentResolver.openInputStream(uri) ?: return null
     val exif = ExifInterface(stream)
     val ll = FloatArray(2)
     val hasGps = exif.getLatLong(ll)
@@ -211,17 +210,17 @@ fun generateQr(text: String, size: Int = 768): Bitmap? = try {
     bmp
 } catch (e: Exception) { null }
 
-suspend fun decodeQr(context: Context, uri: Uri): List<String> = withContext(Dispatchers.IO) {
-    val bmp = decodeScaled(context, uri, 1280) ?: return@withContext emptyList()
-    val scanner = BarcodeScanning.getClient(
-        BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS).build()
-    )
-    suspendCancellableCoroutine { cont ->
-        scanner.process(InputImage.fromBitmap(bmp, 0))
-            .addOnSuccessListener { bars ->
-                cont.resume(bars.map { it.rawValue ?: "" }.filter { it.isNotBlank() })
-            }
-            .addOnFailureListener { cont.resume(emptyList()) }
+suspend fun decodeQr(context: Context, uri: Uri): String? = withContext(Dispatchers.IO) {
+    val bmp = decodeScaled(context, uri, 1280) ?: return@withContext null
+    try {
+        val w = bmp.width
+        val h = bmp.height
+        val pixels = IntArray(w * h)
+        bmp.getPixels(pixels, 0, w, 0, 0, w, h)
+        val bit = BinaryBitmap(HybridBinarizer(RGBLuminanceSource(w, h, pixels)))
+        MultiFormatReader().decode(bit).text
+    } catch (e: Exception) {
+        null
     }
 }
 

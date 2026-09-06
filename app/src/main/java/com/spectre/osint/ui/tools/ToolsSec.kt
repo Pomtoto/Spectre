@@ -53,7 +53,8 @@ fun QrScreen(onBack: () -> Unit) {
         if (u != null) {
             decoded = emptyList(); error = null; busy = true
             scope.launch {
-                decoded = decodeQr(context, u)
+                val d = decodeQr(context, u)
+                decoded = if (d.isNullOrBlank()) emptyList() else listOf(d)
                 busy = false
                 if (decoded.isEmpty()) error = "لم يُعثر على رمز واضح في الصورة"
             }
