@@ -42,8 +42,8 @@ fun auditDevice(context: Context): Pair<List<AuditCheck>, Int> {
 
     // التشفير
     val enc = try {
-        val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as android.app.admin.DevicePolicyManager
-        dpm.isDeviceEncryptionActive
+        val sm = context.getSystemService(Context.STORAGE_SERVICE) as android.os.storage.StorageManager
+        sm.isEncrypted(java.io.File(android.os.Environment.getDataDirectory().path))
     } catch (e: Exception) { null }
     list.add(AuditCheck("تشفير التخزين", when (enc) {
         true -> "مفعّل"

@@ -114,14 +114,16 @@ suspend fun httpAnalyze(url: String): Result<HttpReport> = withContext(Dispatche
             })
         }
         val score = ((present.size * 100) / SECURITY_HEADERS.size)
-        val protocol = if (conn is javax.net.ssl.HttpsURLConnection) conn.cipherSuite.take(40) else "غير مشفر (HTTP)"
+        val tls = conn as? javax.net.ssl.HttpsURLConnection
+        val protoLabel = if (tls != null) "TLS" else "HTTP"
+        val cipher = tls?.cipherSuite?.take(40) ?: "—"
         Result.success(
             HttpReport(
                 status, finalUrl,
                 headerMap["server"] ?: "—",
                 headerMap["x-powered-by"] ?: headerMap["x-aspnet-version"] ?: "—",
-                (conn as? javax.net.ssl.HttpsURLConnection)?.let { "TLS " + it.protocol } ?: "HTTP",
-                protocol,
+                protoLabel,
+                cipher,
                 headerMap, present, missing, cookieFlags, score
             )
         )
