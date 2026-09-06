@@ -180,7 +180,8 @@ fun readExif(context: Context, uri: Uri): ExifData? {
         exif.getAttribute(ExifInterface.TAG_F_NUMBER) ?: "—",
         exif.getAttribute(ExifInterface.TAG_FOCAL_LENGTH) ?: "—"
     )
-} catch (e: Exception) { null }
+    } catch (e: Exception) { null }
+}
 
 suspend fun reverseGeocode(lat: Double, lon: Double): String? = withContext(Dispatchers.IO) {
     val r = Net.get("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$lat&lon=$lon&accept-language=ar")
