@@ -28,6 +28,7 @@ sealed class Screen {
     data object File : Screen()
     data object Crypto : Screen()
     data object Device : Screen()
+    data object Lab : Screen()
 }
 
 class MainActivity : ComponentActivity() {
@@ -53,6 +54,7 @@ class MainActivity : ComponentActivity() {
                     Screen.File -> FileScreen(onBack = { screen = Screen.Home })
                     Screen.Crypto -> CryptoScreen(onBack = { screen = Screen.Home })
                     Screen.Device -> DeviceAuditScreen(onBack = { screen = Screen.Home })
+                    Screen.Lab -> LabScreen(onBack = { screen = Screen.Home })
                 }
             }
         }

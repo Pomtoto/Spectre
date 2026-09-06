@@ -120,6 +120,39 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
 
         Spacer(Modifier.height(10.dp))
 
+        // ── بطاقة المختبر (البطاقة الرئيسية) ──
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(18.dp))
+                .background(Surface2)
+                .border(1.dp, Neon.copy(alpha = 0.65f), RoundedCornerShape(18.dp))
+                .clickable { onOpen(Screen.Lab) }
+                .padding(16.dp)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    Modifier
+                        .size(46.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Red.copy(alpha = 0.14f))
+                        .border(1.dp, Red.copy(alpha = 0.5f), RoundedCornerShape(12.dp)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(Icons.Filled.Terminal, null, tint = Red, modifier = Modifier.size(24.dp))
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Text("SPECTRE LAB", color = Red, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.ExtraBold, fontSize = 15.sp, letterSpacing = 2.sp)
+                    Spacer(Modifier.height(2.dp))
+                    Text("مختبر اختراق حي داخل جهازك — SQLi \u00b7 XSS \u00b7 كسر تجزئة \u00b7 عبور مسارات", color = TextMid, fontSize = 11.5.sp, lineHeight = 15.sp, fontFamily = TajawalFamily)
+                }
+                Text("ابدأ", color = Red, fontWeight = FontWeight.Bold, fontSize = 12.sp, fontFamily = TajawalFamily)
+            }
+        }
+
+        Spacer(Modifier.height(6.dp))
+
         // ── الشبكة ──
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
