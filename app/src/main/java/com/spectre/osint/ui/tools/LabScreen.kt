@@ -66,6 +66,13 @@ fun LabScreen(onBack: () -> Unit) {
         onDispose { lab.stop() }
     }
 
+    fun extractHashes(body: String) {
+        // يحفظ التجزئات المستخرجة لتغذية أداة الكسر
+        Regex("[a-f0-9]{32}").findAll(body).forEach { m ->
+            if (hash.isBlank()) hash = m.value
+        }
+    }
+
     fun fire(method: String, pathQ: String, form: Map<String, String> = emptyMap()) {
         thread {
             try {
@@ -95,13 +102,6 @@ fun LabScreen(onBack: () -> Unit) {
             } catch (e: Exception) {
                 handler.post { term.add(TLine("! فشل الاتصال بالخادم — شغّله أولاً", 2)) }
             }
-        }
-    }
-
-    fun extractHashes(body: String) {
-        // يحفظ التجزئات المستخرجة لتغذية أداة الكسر
-        Regex("[a-f0-9]{32}").findAll(body).forEach { m ->
-            if (hash.isBlank()) hash = m.value
         }
     }
 
