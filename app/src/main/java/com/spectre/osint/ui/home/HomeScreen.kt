@@ -10,6 +10,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FolderOpen
+import androidx.compose.material.icons.filled.Sensors
+import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -51,6 +54,11 @@ private val sections = listOf(
         ToolEntry(Screen.Apk, Icons.Filled.Android, "محلل APK", "الشهادة، الصلاحيات، والمتتبعات من الحزمة", "apk-dex"),
         ToolEntry(Screen.File, Icons.Filled.Description, "فاحص الملفات", "التوقيع السحري والبصمات والنصوص", "file-sig"),
         ToolEntry(Screen.Http, Icons.Filled.Security, "تحليل HTTP", "رأسيات الأمان وبصمة الخادم", "http"),
+    )),
+    ToolSection("الاستطلاع الحي", "NETRECON", listOf(
+        ToolEntry(Screen.Pcap, Icons.Filled.FolderOpen, "محلل PCAP", "تفكيك ملفات الالتقاط: HTTP، DNS، TLS-SNI، التدفقات", "pcap"),
+        ToolEntry(Screen.Wifi, Icons.Filled.Wifi, "مسح الواي فاي", "نقاط الوصول، القناة، الإشارة، والتشفير حولك", "wifi"),
+        ToolEntry(Screen.NetMon, Icons.Filled.Sensors, "مراقب الشبكة", "أجهزة الشبكة المحلية — ARP حي مع المورّدين", "netmon"),
     )),
     ToolSection("الأدوات", "TOOLKIT", listOf(
         ToolEntry(Screen.Password, Icons.Filled.Key, "محلل كلمات المرور", "القوة، زمن الكسر، والمواقع المسرّبة", "pw-audit"),
@@ -184,13 +192,21 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
             }
             item(span = { GridItemSpan(2) }) {
                 Box(Modifier.padding(top = 8.dp, bottom = 18.dp)) {
-                    Text(
-                        "جميع الفحوصات تُجرى على مصادر عامة وأهداف مسموح التعامل معها — استخدم الأدوات بمسؤولية.",
-                        color = TextDim,
-                        fontFamily = TajawalFamily,
-                        fontSize = 11.sp,
-                        lineHeight = 16.sp
-                    )
+                    Column {
+                        Text(
+                            "جميع الفحوصات تُجرى على مصادر عامة وأهداف مسموح التعامل معها — استخدم الأدوات بمسؤولية.",
+                            color = TextDim, fontFamily = TajawalFamily, fontSize = 11.sp, lineHeight = 16.sp
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(6.dp).clip(RoundedCornerShape(3.dp)).background(Neon))
+                            Spacer(Modifier.width(6.dp))
+                            Text(
+                                "SPECTRE — من إعداد Shadowpom · Root-Me 40 تحدي · HackingHub Hacker",
+                                color = Neon.copy(alpha = 0.75f), fontFamily = FontFamily.Monospace, fontSize = 10.5.sp
+                            )
+                        }
+                    }
                 }
             }
         }

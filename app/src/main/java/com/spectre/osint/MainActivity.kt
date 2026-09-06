@@ -29,6 +29,9 @@ sealed class Screen {
     data object Crypto : Screen()
     data object Device : Screen()
     data object Lab : Screen()
+    data object Pcap : Screen()
+    data object Wifi : Screen()
+    data object NetMon : Screen()
 }
 
 class MainActivity : ComponentActivity() {
@@ -55,6 +58,9 @@ class MainActivity : ComponentActivity() {
                     Screen.Crypto -> CryptoScreen(onBack = { screen = Screen.Home })
                     Screen.Device -> DeviceAuditScreen(onBack = { screen = Screen.Home })
                     Screen.Lab -> LabScreen(onBack = { screen = Screen.Home })
+                    Screen.Pcap -> PcapScreen(onBack = { screen = Screen.Home })
+                    Screen.Wifi -> WifiScreen(onBack = { screen = Screen.Home })
+                    Screen.NetMon -> NetMonScreen(onBack = { screen = Screen.Home })
                 }
             }
         }
