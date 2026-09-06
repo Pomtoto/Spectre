@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Spectre" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#05080A</item>
+        <item name="android:statusBarColor">#05080A</item>
+        <item name="android:navigationBarColor">#05080A</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:colorAccent">#00E68C</item>
+    </style>
+</resources>
