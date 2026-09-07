@@ -1,45 +1,354 @@
 [
-  {"n":"Alien TxtBase — سجلات سارقين","d":"","y":"2025-02-19","c":284000000,"k":"email,pass,user,phone,ip","s":1},
-  {"n":"Naz.API — سجلات سارقين","d":"","y":"2023-03-01","c":1000000000,"k":"email,pass,user,phone","s":1},
-  {"n":"National Public Data","d":"","y":"2024-04-01","c":2900000000,"k":"name,ssn,dob,addr,phone","s":0},
-  {"n":"Combolist","d":"","y":"2021-05-01","c":1100000000,"k":"email,pass","s":1},
-  {"n":"Yahoo","d":"yahoo.com","y":"2013-08-01","c":1000000000,"k":"email,pass,phone,user,dob","s":0},
-  {"n":"Collection #1","d":"","y":"2019-01-01","c":773000000,"k":"email,pass","s":1},
-  {"n":"Verifications.io","d":"","y":"2019-02-01","c":763000000,"k":"email,phone,addr","s":0},
-  {"n":"Onliner Spambot","d":"","y":"2016-08-01","c":711000000,"k":"email,pass","s":1},
-  {"n":"Ticketmaster","d":"ticketmaster.com","y":"2024-05-01","c":560000000,"k":"name,email,addr,phone,card","s":0},
-  {"n":"Facebook","d":"facebook.com","y":"2021-06-01","c":533000000,"k":"name,email,phone,user,dob,addr","s":0},
-  {"n":"Yahoo","d":"yahoo.com","y":"2014-12-01","c":500000000,"k":"email,pass,phone,user","s":0},
-  {"n":"Anti Public Combo","d":"","y":"2016-12-01","c":458000000,"k":"email,pass","s":1},
-  {"n":"Marriott","d":"marriott.com","y":"2018-11-01","c":383000000,"k":"name,email,phone,addr,pass","s":0},
-  {"n":"MySpace","d":"myspace.com","y":"2013-06-01","c":360000000,"k":"email,pass,user","s":0},
-  {"n":"Wattpad","d":"wattpad.com","y":"2020-06-01","c":270000000,"k":"email,pass,user","s":0},
-  {"n":"Exploit.in","d":"","y":"2016-05-01","c":593000000,"k":"email,pass","s":1},
-  {"n":"LinkedIn","d":"linkedin.com","y":"2012-06-05","c":164000000,"k":"email,pass,user,phone","s":0},
-  {"n":"Twitter","d":"twitter.com","y":"2023-01-01","c":200000000,"k":"email,phone,user","s":0},
-  {"n":"Dubsmash","d":"dubsmash.com","y":"2019-02-01","c":162000000,"k":"email,user,pass,phone","s":0},
-  {"n":"Adobe","d":"adobe.com","y":"2013-10-04","c":152445165,"k":"email,pass,name,addr,dob","s":0},
-  {"n":"MyFitnessPal","d":"myfitnesspal.com","y":"2018-02-01","c":150000000,"k":"email,pass,user","s":0},
-  {"n":"Equifax","d":"equifax.com","y":"2017-07-01","c":147000000,"k":"name,ssn,dob,addr,card","s":0},
-  {"n":"eBay","d":"ebay.com","y":"2014-05-01","c":145000000,"k":"email,pass,phone,addr","s":0},
-  {"n":"LinkedIn (كشط بيانات)","d":"linkedin.com","y":"2021-04-01","c":700000000,"k":"name,email,phone,user","s":0},
-  {"n":"Canva","d":"canva.com","y":"2019-05-24","c":137000000,"k":"email,user,pass,name","s":0},
-  {"n":"Capital One","d":"capitalone.com","y":"2019-03-01","c":106000000,"k":"name,ssn,addr,email,card","s":0},
-  {"n":"Change Healthcare","d":"","y":"2024-02-01","c":100000000,"k":"name,ssn,dob,addr","s":0},
-  {"n":"Zoosk","d":"zoosk.com","y":"2017-11-01","c":95000000,"k":"email,pass,user","s":0},
-  {"n":"DailyMotion","d":"dailymotion.com","y":"2016-01-01","c":85000000,"k":"email,pass,user","s":0},
-  {"n":"PlayStation Network","d":"playstation.com","y":"2011-04-01","c":77000000,"k":"name,email,dob,addr,pass","s":0},
-  {"n":"Air Canada","d":"aircanada.com","y":"2025-02-01","c":60000000,"k":"name,email,phone,addr","s":0},
-  {"n":"Uber","d":"uber.com","y":"2016-10-01","c":57000000,"k":"name,email,phone","s":0},
-  {"n":"T-Mobile","d":"t-mobile.com","y":"2021-08-01","c":53000000,"k":"name,ssn,dob,addr,phone","s":0},
-  {"n":"Dropbox","d":"dropbox.com","y":"2012-07-01","c":68600000,"k":"email,pass","s":0},
-  {"n":"T-Mobile (هجوم ثانٍ)","d":"t-mobile.com","y":"2023-01-01","c":37000000,"k":"name,phone,dob","s":0},
-  {"n":"Ticketmaster UK","d":"ticketmaster.co.uk","y":"2018-06-01","c":38000000,"k":"name,email,phone,addr,card","s":0},
-  {"n":"LastPass","d":"lastpass.com","y":"2022-08-01","c":25000000,"k":"email,pass,user","s":0},
-  {"n":"Twitch","d":"twitch.tv","y":"2021-10-01","c":17000000,"k":"email,pass,user","s":0},
-  {"n":"Kik","d":"kik.com","y":"2017-01-01","c":15000000,"k":"email,pass,user","s":0},
-  {"n":"Optus","d":"optus.com.au","y":"2022-09-01","c":10000000,"k":"name,email,phone,addr,dob","s":0},
-  {"n":"Medibank","d":"medibank.com.au","y":"2022-10-01","c":9700000,"k":"name,email,phone,dob,addr","s":0},
-  {"n":"AT&T","d":"att.com","y":"2024-03-01","c":73000000,"k":"name,email,ssn,phone,addr","s":0},
-  {"n":"AT&T (خلال 2021)","d":"att.com","y":"2021-01-01","c":9000000,"k":"name,phone,ssn","s":0}
+ {
+  "n": "Alien TxtBase — سجلات سارقين",
+  "d": "",
+  "y": "2025-02-19",
+  "c": 284000000,
+  "k": "email,pass,user,phone,ip",
+  "s": 1
+ },
+ {
+  "n": "Naz.API — سجلات سارقين",
+  "d": "",
+  "y": "2023-03-01",
+  "c": 1000000000,
+  "k": "email,pass,user,phone",
+  "s": 1
+ },
+ {
+  "n": "LinkPass — سجلات سارقين",
+  "d": "",
+  "y": "2022-11-01",
+  "c": 150000000,
+  "k": "email,pass,user",
+  "s": 1
+ },
+ {
+  "n": "National Public Data",
+  "d": "",
+  "y": "2024-04-01",
+  "c": 2900000000,
+  "k": "name,ssn,dob,addr,phone",
+  "s": 0
+ },
+ {
+  "n": "Combolist",
+  "d": "",
+  "y": "2021-05-01",
+  "c": 1100000000,
+  "k": "email,pass",
+  "s": 1
+ },
+ {
+  "n": "Yahoo",
+  "d": "yahoo.com",
+  "y": "2013-08-01",
+  "c": 1000000000,
+  "k": "email,pass,phone,user,dob",
+  "s": 0
+ },
+ {
+  "n": "Collection #1",
+  "d": "",
+  "y": "2019-01-01",
+  "c": 773000000,
+  "k": "email,pass",
+  "s": 1
+ },
+ {
+  "n": "Verifications.io",
+  "d": "",
+  "y": "2019-02-01",
+  "c": 763000000,
+  "k": "email,phone,addr",
+  "s": 0
+ },
+ {
+  "n": "Onliner Spambot",
+  "d": "",
+  "y": "2016-08-01",
+  "c": 711000000,
+  "k": "email,pass",
+  "s": 1
+ },
+ {
+  "n": "Ticketmaster",
+  "d": "ticketmaster.com",
+  "y": "2024-05-01",
+  "c": 560000000,
+  "k": "name,email,addr,phone,card",
+  "s": 0
+ },
+ {
+  "n": "Facebook",
+  "d": "facebook.com",
+  "y": "2021-06-01",
+  "c": 533000000,
+  "k": "name,email,phone,user,dob,addr",
+  "s": 0
+ },
+ {
+  "n": "Yahoo",
+  "d": "yahoo.com",
+  "y": "2014-12-01",
+  "c": 500000000,
+  "k": "email,pass,phone,user",
+  "s": 0
+ },
+ {
+  "n": "Anti Public Combo",
+  "d": "",
+  "y": "2016-12-01",
+  "c": 458000000,
+  "k": "email,pass",
+  "s": 1
+ },
+ {
+  "n": "Marriott",
+  "d": "marriott.com",
+  "y": "2018-11-01",
+  "c": 383000000,
+  "k": "name,email,phone,addr,pass",
+  "s": 0
+ },
+ {
+  "n": "MySpace",
+  "d": "myspace.com",
+  "y": "2013-06-01",
+  "c": 360000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "Wattpad",
+  "d": "wattpad.com",
+  "y": "2020-06-01",
+  "c": 270000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "Exploit.in",
+  "d": "",
+  "y": "2016-05-01",
+  "c": 593000000,
+  "k": "email,pass",
+  "s": 1
+ },
+ {
+  "n": "LinkedIn",
+  "d": "linkedin.com",
+  "y": "2012-06-05",
+  "c": 164000000,
+  "k": "email,pass,user,phone",
+  "s": 0
+ },
+ {
+  "n": "Twitter",
+  "d": "twitter.com",
+  "y": "2023-01-01",
+  "c": 200000000,
+  "k": "email,phone,user",
+  "s": 0
+ },
+ {
+  "n": "Dubsmash",
+  "d": "dubsmash.com",
+  "y": "2019-02-01",
+  "c": 162000000,
+  "k": "email,user,pass,phone",
+  "s": 0
+ },
+ {
+  "n": "Adobe",
+  "d": "adobe.com",
+  "y": "2013-10-04",
+  "c": 152445165,
+  "k": "email,pass,name,addr,dob",
+  "s": 0
+ },
+ {
+  "n": "MyFitnessPal",
+  "d": "myfitnesspal.com",
+  "y": "2018-02-01",
+  "c": 150000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "Equifax",
+  "d": "equifax.com",
+  "y": "2017-07-01",
+  "c": 147000000,
+  "k": "name,ssn,dob,addr,card",
+  "s": 0
+ },
+ {
+  "n": "eBay",
+  "d": "ebay.com",
+  "y": "2014-05-01",
+  "c": 145000000,
+  "k": "email,pass,phone,addr",
+  "s": 0
+ },
+ {
+  "n": "LinkedIn (كشط بيانات)",
+  "d": "linkedin.com",
+  "y": "2021-04-01",
+  "c": 700000000,
+  "k": "name,email,phone,user",
+  "s": 0
+ },
+ {
+  "n": "Canva",
+  "d": "canva.com",
+  "y": "2019-05-24",
+  "c": 137000000,
+  "k": "email,user,pass,name",
+  "s": 0
+ },
+ {
+  "n": "Capital One",
+  "d": "capitalone.com",
+  "y": "2019-03-01",
+  "c": 106000000,
+  "k": "name,ssn,addr,email,card",
+  "s": 0
+ },
+ {
+  "n": "Change Healthcare",
+  "d": "",
+  "y": "2024-02-01",
+  "c": 100000000,
+  "k": "name,ssn,dob,addr",
+  "s": 0
+ },
+ {
+  "n": "Zoosk",
+  "d": "zoosk.com",
+  "y": "2017-11-01",
+  "c": 95000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "DailyMotion",
+  "d": "dailymotion.com",
+  "y": "2016-01-01",
+  "c": 85000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "PlayStation Network",
+  "d": "playstation.com",
+  "y": "2011-04-01",
+  "c": 77000000,
+  "k": "name,email,dob,addr,pass",
+  "s": 0
+ },
+ {
+  "n": "Air Canada",
+  "d": "aircanada.com",
+  "y": "2025-02-01",
+  "c": 60000000,
+  "k": "name,email,phone,addr",
+  "s": 0
+ },
+ {
+  "n": "Uber",
+  "d": "uber.com",
+  "y": "2016-10-01",
+  "c": 57000000,
+  "k": "name,email,phone",
+  "s": 0
+ },
+ {
+  "n": "T-Mobile",
+  "d": "t-mobile.com",
+  "y": "2021-08-01",
+  "c": 53000000,
+  "k": "name,ssn,dob,addr,phone",
+  "s": 0
+ },
+ {
+  "n": "Dropbox",
+  "d": "dropbox.com",
+  "y": "2012-07-01",
+  "c": 68600000,
+  "k": "email,pass",
+  "s": 0
+ },
+ {
+  "n": "T-Mobile (هجوم ثانٍ)",
+  "d": "t-mobile.com",
+  "y": "2023-01-01",
+  "c": 37000000,
+  "k": "name,phone,dob",
+  "s": 0
+ },
+ {
+  "n": "Ticketmaster UK",
+  "d": "ticketmaster.co.uk",
+  "y": "2018-06-01",
+  "c": 38000000,
+  "k": "name,email,phone,addr,card",
+  "s": 0
+ },
+ {
+  "n": "LastPass",
+  "d": "lastpass.com",
+  "y": "2022-08-01",
+  "c": 25000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "Twitch",
+  "d": "twitch.tv",
+  "y": "2021-10-01",
+  "c": 17000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "Kik",
+  "d": "kik.com",
+  "y": "2017-01-01",
+  "c": 15000000,
+  "k": "email,pass,user",
+  "s": 0
+ },
+ {
+  "n": "Optus",
+  "d": "optus.com.au",
+  "y": "2022-09-01",
+  "c": 10000000,
+  "k": "name,email,phone,addr,dob",
+  "s": 0
+ },
+ {
+  "n": "Medibank",
+  "d": "medibank.com.au",
+  "y": "2022-10-01",
+  "c": 9700000,
+  "k": "name,email,phone,dob,addr",
+  "s": 0
+ },
+ {
+  "n": "AT&T",
+  "d": "att.com",
+  "y": "2024-03-01",
+  "c": 73000000,
+  "k": "name,email,ssn,phone,addr",
+  "s": 0
+ },
+ {
+  "n": "AT&T (خلال 2021)",
+  "d": "att.com",
+  "y": "2021-01-01",
+  "c": 9000000,
+  "k": "name,phone,ssn",
+  "s": 0
+ }
 ]

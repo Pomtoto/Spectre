@@ -57,36 +57,62 @@ fun BreachScreen(onBack: () -> Unit) {
     var busy by remember { mutableStateOf(false) }
 
     fun checkSite() {
-        val catalog = loadCatalog(context)
-        val hits = searchDomainBreaches(catalog, domain)
-        val out = ArrayList<TLine>()
-        val dq = normalizeDomain(domain)
-        out.add(tHead("BREACH RECORD — $dq"))
-        out.add(tInfo("المصدر: فهرس التسريبات المرفق v4.1 (سجلات عامة موثقة)"))
-        if (hits.isEmpty()) {
-            out.add(tWarn("لا سجلات مسربة موثقة لهذا النطاق في الفهرس"))
-            out.add(tInfo("مع ذلك، سجلات السارقين (stealer logs) تُستعلم لكل حساب وليس لكل موقع"))
-            out.add(tInfo("استخدم تبويب الحساب لفحص بريدك، وتبويب كلمة المرور لفحص كلماتك"))
-            siteVerdict = "لا سجلات موثقة" to 2
-        } else {
-            val total = hits.sumOf { it.count }
-            out.add(tOk("${hits.size} تسريباً موثقاً (${formatCount(total)} سجل)"))
-            hits.forEach { b ->
-                out.add(
-                    TLine("${b.date}  ${b.name}  ·  ${formatCount(b.count)} حساب", 0)
-                )
-                out.add(TLine("         بيانات: ${b.classes.joinToString("، ")}", 3))
+        if (domain.isBlank()) return
+        busy = true
+        siteLines = emptyList()
+        siteVerdict = null
+        scope.launch {
+            val bundled = loadCatalog(context)
+            var catalog = bundled
+            var liveNote = "فهرس مرفق v4.2 — بيانات عامة موثقة"
+            if (key.isNotBlank()) {
+                val live = fetchLiveCatalog(key)
+                if (live.isNotEmpty()) {
+                    val names = bundled.map { it.name }.toSet()
+                    catalog = bundled + live.filter { it.name !in names }
+                    liveNote = "كتالوج HIBP الحي (${live.size} تسريباً) + مرفق"
+                } else {
+                    liveNote = "فهرس مرفق v4.2 — تعذر التحديث الحي"
+                }
             }
-            if (hits.any { it.stealer }) {
-                out.add(tWarn("تتضمن السجلات من سجلات سارقين — اعتبر كلمات مرورك لكل المواقع المستخدمة مكشوفة"))
+            val hits = searchDomainBreaches(catalog, domain)
+            val dq = normalizeDomain(domain)
+            val sector = sectorRisk(dq)
+            val out = ArrayList<TLine>()
+            out.add(tHead("BREACH RECORD — $dq"))
+            out.add(tInfo("المصدر: $liveNote"))
+            if (hits.isEmpty()) {
+                if (sector == null) {
+                    out.add(tWarn("لا سجلات موثقة بهذا الاسم في الفهرس المتاح"))
+                    out.add(tInfo("الأنسب: فحص بياناتك أنت — تبويب «حساب» (HIBP)"))
+                    siteVerdict = "لا سجلات موثقة" to 2
+                } else {
+                    out.add(tWarn("قطاع عالي الاستهداف: $sector"))
+                    out.add(tInfo("هذه القطاعات من أكثر ما تصطاده سجلات السارقين — احتمال وجود سجلات لهذا الموقع ضمن ALIEN TXTBASE أو LinkPass أو NAZ.API مرتفع جداً"))
+                    out.add(tInfo("التطبيق لا يعرض بيانات ضحايا الغير. تحقق من بياناتك أنت في تبويب «حساب»"))
+                    siteVerdict = "محتمل بقوة — سجلات سارقين" to 1
+                }
+            } else {
+                val total = hits.sumOf { it.count }
+                out.add(tOk("${hits.size} تسريباً موثقاً (${formatCount(total)} سجل)"))
+                hits.forEach { b ->
+                    out.add(TLine("${b.date}  ${b.name}  ·  ${formatCount(b.count)} حساب", 0))
+                    out.add(TLine("         بيانات: ${b.classes.joinToString("، ")}", 3))
+                }
+                if (hits.any { it.stealer }) {
+                    out.add(tWarn("تشمل سجلات سارقين — اعتبر كل كلمة مرور استخدمتها في هذه المواقع مكشوفة وغيّرها"))
+                }
+                siteVerdict = "${hits.size} تسريباً موثقاً" to if (hits.any { it.stealer }) 0 else 1
             }
-            siteVerdict = "${hits.size} تسريباً موثقاً" to if (hits.any { it.stealer }) 0 else 1
+            if (sector != null) {
+                out.add(tDim("مرجع القطاع: $sector — من أكثر القطاعات المستهدفة في سجلات السارقين"))
+            }
+            val top = catalog.sortedByDescending { it.count }.take(3)
+            out.add(tDim("أكبر التسريبات المسجلة عالمياً:"))
+            top.forEach { out.add(TLine("${it.name} — ${formatCount(it.count)}", 4)) }
+            siteLines = out
+            busy = false
         }
-        // أكبر تسريب عالمي للمرجع
-        val top = loadCatalog(context).sortedByDescending { it.count }.take(3)
-        out.add(tDim("أكبر التسريبات المسجلة عالمياً:"))
-        top.forEach { out.add(TLine("${it.name} — ${formatCount(it.count)}", 4)) }
-        siteLines = out
     }
 
     fun checkAccount() {
@@ -148,7 +174,7 @@ fun BreachScreen(onBack: () -> Unit) {
                     }
                     Spacer(Modifier.height(6.dp))
                     Text(
-                        "ملاحظة: الفهرس المرفق يغطي أبرز التسريبات الموثقة — الفحص الحيّ الكامل لأي حساب عبر Have I Been Pwned في تبويب «حساب».",
+                        "المصدر: كتالوج مرفق + تحديث حي من كتالوج HIBP العام عند إضافة المفتاح. التحقق من بياناتك أنت عبر تبويب «حساب».",
                         color = TextDim, fontSize = 11.sp, lineHeight = 16.sp, fontFamily = TajawalFamily
                     )
                 }

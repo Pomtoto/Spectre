@@ -123,7 +123,7 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
             Spacer(Modifier.width(8.dp))
             StatusMini("TCP / DNS / HTTP", Violet)
             Spacer(Modifier.weight(1f))
-            Text("v2.0 PRO", color = TextDim, fontFamily = FontFamily.Monospace, fontSize = 12.sp)
+            Text("v4.2 PRO", color = TextDim, fontFamily = FontFamily.Monospace, fontSize = 12.sp)
         }
 
         Spacer(Modifier.height(10.dp))

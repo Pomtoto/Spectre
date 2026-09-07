@@ -11,8 +11,8 @@ android {
         applicationId = "com.spectre.osint"
         minSdk = 26
         targetSdk = 34
-        versionCode = 5
-        versionName = "4.1"
+        versionCode = 6
+        versionName = "4.2"
     }
 
     buildTypes {
