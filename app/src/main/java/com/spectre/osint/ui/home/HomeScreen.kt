@@ -62,7 +62,7 @@ private val sections = listOf(
     )),
     ToolSection("الأدوات", "TOOLKIT", listOf(
         ToolEntry(Screen.Password, Icons.Filled.Key, "محلل كلمات المرور", "القوة، زمن الكسر، والمواقع المسرّبة", "pw-audit"),
-        ToolEntry(Screen.Breach, Icons.Filled.Email, "كاشف التسريبات", "حسابك ضمن أي تسريب معروف؟", "breach"),
+        ToolEntry(Screen.Breach, Icons.Filled.Email, "مراقب التسريبات", "أي موقع هُرق؟ حسابك وكلمتك في التسريبات؟", "breach-intel"),
         ToolEntry(Screen.Crypto, Icons.Filled.Calculate, "مختبر الترميز", "Hash وBase64 وHex وXOR وROT13", "crypto"),
         ToolEntry(Screen.Qr, Icons.Filled.QrCode, "قارئ QR", "فك وتوليد رموز QR", "qr"),
         ToolEntry(Screen.Device, Icons.Filled.PhoneAndroid, "فحص الجهاز", "حالة الحماية العامة لجهازك", "audit"),
